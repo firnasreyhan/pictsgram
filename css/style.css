@@ -1,0 +1,33 @@
+.foto_profil{
+	width: 200px;
+	height: 200px;
+	border: 6px  solid #666;
+}
+.foto{
+	width: 50px;
+	height: 50px;
+	border: 2px  solid #666;
+}
+.jarak{
+	margin-bottom: 28px;
+}
+.thumbnail {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
