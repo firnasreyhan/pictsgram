@@ -1,23 +1,23 @@
 .foto_profil{
-	width: 200px;
-	height: 200px;
-	border: 6px  solid #666;
+	width: 150px;
+	height: 150px;
+	border: 3px solid #666;
 }
 .foto{
-	width: 50px;
-	height: 50px;
-	border: 2px  solid #666;
+	width: 75px;
+	height: 75px;
+	border: 1px solid #666;
 }
 .jarak{
 	margin-bottom: 28px;
 }
-.thumbnail {
+.center-crop {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 293px;
+  height: 293px;
   overflow: hidden;
 }
-.thumbnail img {
+.center-crop img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -27,7 +27,7 @@
       -ms-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
 }
-.thumbnail img.portrait {
+.center-crop img.portrait {
   width: 100%;
   height: auto;
 }
