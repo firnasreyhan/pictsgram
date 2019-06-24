@@ -5,8 +5,8 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href="home.php">Home</a></li>
-					<li><a href="#">User Ranking</a></li>
-					<li><a href="#">Popular Photos</a></li>
+					<li><a href="user_ranking.php">User Ranking</a></li>
+					<li><a href="popular_photos.php">Popular Photos</a></li>
 				</ul>
 				<form class="navbar-form navbar-left" action="/action_page.php">
 					<div class="input-group">
