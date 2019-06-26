@@ -1,5 +1,6 @@
 <?php
-	include("main_header.php");
+  include("main_header.php");
+  
 ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -28,42 +29,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Trident</td>
-				  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>
-					<a href="#" class="btn btn-xs btn-danger">Delete</a>
-					<a href="#" class="btn btn-xs btn-warning">Block</a>
-					<a href="#" class="btn btn-xs btn-success">Admin</a>
-				  </td>
-                </tr>
-				<tr>
-                  <td>Trident</td>
-                  <td>Trident</td>
-				  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>
-					<a href="#" class="btn btn-xs btn-danger">Delete</a>
-					<a href="#" class="btn btn-xs btn-warning">Block</a>
-					<a href="#" class="btn btn-xs btn-success">Admin</a>
-				  </td>
-                </tr>
-				<tr>
-                  <td>Trident</td>
-                  <td>Trident</td>
-				  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>Trident</td>
-                  <td>
-					<a href="#" class="btn btn-xs btn-danger">Delete</a>
-					<a href="#" class="btn btn-xs btn-warning">Block</a>
-					<a href="#" class="btn btn-xs btn-success">Admin</a>
-				  </td>
-                </tr>
+                    <?php 
+                        include_once("../../config/koneksi.php");
+
+                        // Mengambil data dari "pictsgram"
+                        
+                        $result = mysqli_query($mysqli, "SELECT username , name , email, phone, status FROM user");
+                        while($data = mysqli_fetch_array($result)){
+                          echo "<tr>";
+                          echo "<td>".$data['username']."</td>";
+                          echo "<td>".$data['name']."</td>";
+                          echo "<td>".$data['email']."</td>"; 
+                          echo "<td>".$data['phone']."</td>";
+                          echo "<td>".$data['status']."</td>";
+
+                          echo "<td><a href='delete_user.php?username=".$data['username']."' class='btn btn-xs btn-danger'>Delete</a>
+					                <a href='#' class='btn btn-xs btn-warning'>Block</a></td></tr>";    
+                          echo "</tr>";
+                        }
+
+                    ?>
                 </tbody>
                 <tfoot>
                 <tr>

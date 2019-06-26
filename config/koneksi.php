@@ -1,10 +1,10 @@
 <?php
 /**
- * Menggunakan mysqli_connect untuk menghubungkan php dengan mysql
+ * Menggunakan mysqli_connect untuk menghubungkan php dengan mysql */
  
 
 $databaseHost = 'localhost';
-$databaseName = 'dbsiswa';
+$databaseName = 'pictsgram';
 $databaseUsername = 'root';
 $databasePassword = '';
 
@@ -16,5 +16,5 @@ if (!$mysqli) {
 }else {
     //echo "Koneksi berhasil";
 }
-*/
+
 ?>

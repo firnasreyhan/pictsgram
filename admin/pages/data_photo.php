@@ -1,5 +1,8 @@
 <?php
-	include("main_header.php");
+  include("main_header.php");
+  include("koneksi.php");
+
+  $result = mysqli_query($mysqli, "SELECT * FROM post ORDER BY ID_POST ASC");
 ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -33,7 +36,7 @@
 				  </td>
                   <td>Win 95+</td>
                   <td>
-					<a href="#" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+					<a href="delete_post.php" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
 				  </td>
                 </tr>
 				<tr>
@@ -43,7 +46,7 @@
 				  </td>
                   <td>Win 95+</td>
                   <td>
-					<a href="#" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+					<a href="delete_post.php" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
 				  </td>
                 </tr>
 				<tr>
@@ -53,7 +56,7 @@
 				  </td>
                   <td>Win 95+</td>
                   <td>
-					<a href="#" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+					<a href="delete_post.php" class="btn btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
 				  </td>
                 </tr>
                 </tbody>
