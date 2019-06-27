@@ -13,15 +13,6 @@ while($post = mysqli_fetch_array($sql)){
     mysqli_query($mysqli, "DELETE FROM post WHERE id_post='$id_post'");
 
 }
-
-// Menghapus pk post dahulu
-
-//  if(!$query){
-//     echo mysqli_error($mysqli);
-//  }
-
- // menghapus fk user
- 
   mysqli_query($mysqli, "DELETE FROM relationship WHERE username_a='$username'");
   mysqli_query($mysqli, "DELETE FROM user WHERE username='$username'");
 
