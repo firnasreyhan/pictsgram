@@ -44,7 +44,7 @@
                           echo "<td>".$data['status']."</td>";
 
                           echo "<td><a href='delete_user.php?username=".$data['username']."' class='btn btn-xs btn-danger'>Delete</a>
-					                <a href='#' class='btn btn-xs btn-warning'>Block</a></td></tr>";    
+					                <a href='block_user.php?username=".$data['username']."' class='btn btn-xs btn-warning'>Block</a></td></tr>";    
                           echo "</tr>";
                         }
 
