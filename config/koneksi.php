@@ -1,7 +1,7 @@
 <?php
 /**
- * Menggunakan mysqli_connect untuk menghubungkan php dengan mysql */
- 
+ * Menggunakan mysqli_connect untuk menghubungkan php dengan mysql
+ */
 
 $databaseHost = 'localhost';
 $databaseName = 'pictsgram';

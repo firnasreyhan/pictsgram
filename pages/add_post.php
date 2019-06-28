@@ -1,10 +1,19 @@
+<?php
+	session_start();
+	if($_SESSION['status'] != "active"){
+		header("location:signin.php?message=invalid");
+	}
+	$username = $_GET['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Tampilan Utama Pictsgram</title>
+		<title>Add Post | Pictsgram</title>
+		
+		<script src="../js/jquery-3.4.1.min.js"></script>
 		
 		<!-- Memanggil css bootstrap -->
 		<link rel="stylesheet" href="../css/bootstrap.css">
@@ -27,7 +36,7 @@
 											
 										</div>
 										<div class="">
-											<img src="../images/no_photo.jpg" class="img-responsive center-block">
+											<img src="../images/no_photo.jpg" id="imgTemp" class="img-responsive center-block" />
 										</div>
 										<div class="panel-footer">
 											
@@ -40,16 +49,19 @@
 							<div>
 								<div class="panel panel-default">
 									<div class="panel-body">
-										<form action="/action_page.php">
+										<form action="process/add_post.php" method="post" enctype="multipart/form-data">
+											<label hidden>
+												<input name="username" type="text" class="form-control" value="<?php echo $username;?>">
+											</label>
 											<label>Select Image</label>
 											<br/>
-											<input type="file" name="myFile">
+											<input type="file" name="file" id="img">
 											<br/>
 											<label>Caption</label>
 											<br/>
-											<textarea style="width:100%; height:200px;"></textarea>
+											<textarea name="caption" style="width:100%; height:200px;"></textarea>
 											<br/>
-											<button type="button" class="btn btn-primary btn-flat pull-right"><span class="glyphicon glyphicon-send"></span> Post</button>
+											<button name="upload" type="submit" class="btn btn-primary btn-flat pull-right"><span class="glyphicon glyphicon-send"></span> Post</button>
 										</form>
 									</div>
 								</div>
@@ -60,5 +72,20 @@
 				<div class="col-md-1"></div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					
+					reader.onload = function (e) {
+						$('#imgTemp').attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			$("#img").change(function(){
+				readURL(this);
+			});
+		</script>
 	</body>
 </html>

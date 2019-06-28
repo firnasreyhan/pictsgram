@@ -1,10 +1,17 @@
+<?php 
+	session_start();
+	if($_SESSION['status'] != "active"){
+		header("location:signin.php?message=invalid");
+	}
+	$username = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Tampilan Utama Pictsgram</title>
+		<title>User Ranking | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
 		<link rel="stylesheet" href="../css/bootstrap.css">
@@ -25,101 +32,30 @@
 									<tr>
 										<th>Rank</th>
 										<th>Username</th>
-										<th>Total Likes</th>
-										<th>Total Views</th>
+										<th>Followers</th>
+										<th>Likes</th>
+										<th>Views</th>
 									</tr>
 								</thead>
 								<tbody>
+									<?php 
+										$query_top_user = mysqli_query($mysqli, "SELECT * FROM top_user");
+										$ranking = 1;
+										while($data = mysqli_fetch_array($query_top_user)){
+									?>
 									<tr>
-										<td>1</td>
+										<td><?php echo $ranking++; ?></td>
 										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
+											<a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="width:40px; height:40px;"/></a>
+											<label style="margin-left:10px;"><a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label>
 										</td>
-										<td>100</td>
-										<td>100</td>
+										<td><?php echo $data['TOTALFOLLOWERS']; ?></td>
+										<td><?php echo $data['TOTALLOVE']; ?></td>
+										<td><?php echo $data['TOTALVIEW']; ?></td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>50</td>
-										<td>50</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>10</td>
-										<td>10</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>100</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>50</td>
-										<td>50</td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>10</td>
-										<td>10</td>
-									</tr>
-									<tr>
-										<td>7</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>10</td>
-										<td>10</td>
-									</tr>
-									<tr>
-										<td>8</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>50</td>
-										<td>50</td>
-									</tr>
-									<tr>
-										<td>9</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>10</td>
-										<td>10</td>
-									</tr>
-									<tr>
-										<td>10</td>
-										<td>
-											<a href="#"><img src="../images/avatar.jpg" class="img-circle" style="width:40px; height:40px;"/></a>
-											<label style="margin-left:10px;"><a href="#">Doe</a></label>
-										</td>
-										<td>10</td>
-										<td>10</td>
-									</tr>
+									<?php
+										}
+									?>
 								</tbody>
 							</table>
 						</div>
