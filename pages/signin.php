@@ -7,7 +7,7 @@
 			
 		<!-- Memanggil css -->
 		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/style.min.css">
 	</head>
 	<body style="background:#fafafa;">
 		<div class="container"
