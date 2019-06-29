@@ -1,3 +1,10 @@
+<?php 
+	session_start();
+	if($_SESSION['status'] != "active"){
+		header("location:signin.php?message=invalid");
+	}
+	$username = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,208 +34,28 @@
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
+								<?php
+									include_once("../config/koneksi.php");
+									
+									// $username = $_GET['username_b'];
+									$result = mysqli_query($mysqli, "SELECT username_a from relationship where username_b ='manusiabiasa'" );
+										while($data = mysqli_fetch_array($result)){
+											echo "<td><img src='../images/profile/no_profile.jpg' class='img-circle' style='height:32px; width:32px;'>";
+											echo "<td><label style='margin-left:16px;'><a href='profile.php?'> Username &nbsp</a></label>";
+											echo "<td><button type='button' class='btn btn-primary btn-sm pull-right'><span class='glyphicon glyphicon-ok'></span> Follow </button>";
+									}
+								?>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div>
-									<img src="../images/profile/no_profile.jpg" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-									<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-								</div>
-							</div>
-						</div>
-					</div>
+				</div>
+					
 				</div>
 			</div>
 			
 			<div class="col-md-1">
 			</div>
 		</div>
-	</div>
 	<!-- akhir container -->
 </body>
 </html>
