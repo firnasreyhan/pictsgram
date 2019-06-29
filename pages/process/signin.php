@@ -20,6 +20,6 @@ if($cek > 0){
 	$_SESSION['status'] = "active";
 	header("location:../home.php");
 }else{
-	//header("location:../signin.php?message=error");
+	header("location:../signin.php?message=error");
 }
 ?>
