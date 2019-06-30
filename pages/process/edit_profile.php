@@ -25,21 +25,25 @@
 			if($ukuran < 1044070){	
 				move_uploaded_file($file_tmp, '../../images/profile/'.$nama);
 				$query = mysqli_query($mysqli, "UPDATE user SET USERNAME='$username',NAME='$name',IMAGE='$nama',GENDER='$gender',ABOUT='$about',EMAIL='$email',PHONE='$phone',WEBSITE='$website' WHERE username='$username_old'");
-				if($query){
+				if($query){	
+					$_SESSION['username'] = $username;
 					header("location:../profile.php?username=$username");
 				} else {
-					header("location:../add_post.php?message=failed");
+					header("location:../edit_profile.php?message=failed");
 				}
 			} else {
-				header("location:../add_post.php?message=size");
+				header("location:../edit_profile.php?message=size");
 			}
 		} else {
-			header("location:../add_post.php?message=extension");
+			header("location:../edit_profile.php?message=extension");
 		}
 	} else {
 		$query = mysqli_query($mysqli, "UPDATE user SET USERNAME='$username',NAME='$name',GENDER='$gender',ABOUT='$about',EMAIL='$email',PHONE='$phone',WEBSITE='$website' WHERE username='$username_old'");
 		if($query){
+			$_SESSION['username'] = $username;
 			header("location:../profile.php?username=$username");
+		} else {
+			header("location:../edit_profile.php?message=failed");
 		}
 	}
 ?>

@@ -14,8 +14,8 @@
 		<title>Home | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body style="background:#fafafa;">
 		<?php
@@ -36,7 +36,9 @@
 							<div class="row">
 								<?php
 									$query_home = mysqli_query($mysqli, "SELECT * FROM post WHERE username IN (SELECT username_b FROM relationship WHERE username_a = '$username') ORDER BY TIME DESC");
-									while($data = mysqli_fetch_array($query_home)){
+									$cek_home = mysqli_num_rows($query_home);
+									if($cek_home != 0) {
+										while($data = mysqli_fetch_array($query_home)){
 								?>
 								<div class="col-md-12">
 									<div class="panel panel-default">
@@ -53,12 +55,13 @@
 												
 												$query_user_post = mysqli_query($mysqli, "SELECT image FROM user WHERE username = '$username_post'");
 												while($data = mysqli_fetch_array($query_user_post)){
+													$image_profile = $data['image'];
 											?>
-											<img src="../images/profile/<?php echo $data['image']; ?>" class="img-circle" style="height:32px; width:32px;">
+											<img src="../images/profile/<?php echo $image_profile; ?>" class="img-circle" style="height:32px; width:32px;">
 											<?php
 												}
 											?>
-											<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_post ?>"><?php echo $username_post; ?></a></label>
+											<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_post; ?>"><?php echo $username_post; ?></a></label>
 										</div>
 										<div class="">
 											<img src="../images/post/<?php echo $image_post; ?>" class="img-responsive center-block">
@@ -67,7 +70,6 @@
 											<div style="margin-bottom:5px;">
 												<form action="process/add_love.php" method="post" style="display:inline;">
 													<label hidden>
-														<input name="location" class="form-control" type="text" value="home"/>
 														<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 														<input name="username" class="form-control" type="text" value="<?php echo $username; ?>"/>
 													</label>
@@ -75,7 +77,6 @@
 												</form>
 												<form action="process/remove_love.php" method="post" style="display:inline;">
 													<label hidden>
-														<input name="location" class="form-control" type="text" value="home"/>
 														<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 														<input name="username" class="form-control" type="text" value="<?php echo $username; ?>"/>
 													</label>
@@ -91,12 +92,12 @@
 											<label><a href="#"><?php echo $love_post; ?> Likes</a></label>
 											<br/>
 											<div style="word-wrap:break-word;">
-												<p><label><a href="profile.php?username=<?php echo $username_post ?>"><?php echo $username_post; ?></a></label> <?php echo $caption_post; ?></p>
+												<p><img src="../images/profile/<?php echo $image_profile; ?>" class="img-circle" style="height:32px; width:32px;"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="profile.php?username=<?php echo $username_post ?>"><?php echo $username_post; ?></a></label> <?php echo $caption_post; ?></p>
 												<hr/>
 												<?php
-													$query_comment = mysqli_query($mysqli, "SELECT * FROM comment WHERE id_post='$id_post'");
+													$query_comment = mysqli_query($mysqli, "SELECT comment.ID_POST, user.USERNAME, user.IMAGE, comment.COMMENT FROM user, comment WHERE user.USERNAME = comment.USERNAME AND comment.ID_POST = '$id_post'");
 													while($data = mysqli_fetch_array($query_comment)){ ?>
-														<p><label><a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label> <?php echo $data['COMMENT']; ?></p>
+														<p><img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label> <?php echo $data['COMMENT']; ?></p>
 												<?php
 													}
 												?>
@@ -104,7 +105,6 @@
 											<form action="process/add_comment.php" method="post">
 												<div class="input-group">
 													<label hidden>
-														<input name="location" class="form-control" type="text" value="home"/>
 														<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 														<input name="username" class="form-control" type="text" value="<?php echo $username; ?>"/>
 													</label>
@@ -117,6 +117,11 @@
 										</div>
 									</div>
 								</div>
+								<?php
+										}
+									} else {
+								?>
+								<h1 class="text-center" style="margin-top:200px">~No Photos~</h1>
 								<?php
 									}
 								?>
@@ -142,47 +147,45 @@
 										<label>Top User</label>
 									</div>
 									<div class="panel-body">
+										<?php
+											$query_top_user = mysqli_query($mysqli, "SELECT * FROM top_user LIMIT 5");
+											while($data = mysqli_fetch_array($query_top_user)){
+												$username_top_user = $data['USERNAME'];
+												$query_relationship = mysqli_query($mysqli, "SELECT * FROM relationship WHERE username_a = '$username' AND username_b = '$username_top_user'");
+												$cek = mysqli_num_rows($query_relationship);
+												if($username == $username_top_user) {
+										?>
 										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
+											<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;">
+											<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_top_user ?>"><?php echo $username_top_user; ?></a></label>
 										</div>
 										<br/>
+										<?php
+												} else {
+										?>
 										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
+											<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;">
+											<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_top_user ?>"><?php echo $username_top_user; ?></a></label>
+											<form action="process/add_relationship.php" method="post" style="display:inline;">
+												<label hidden>
+													<input name="username_a" class="form-control" type="text" value="<?php echo $username; ?>"/>
+													<input name="username_b" class="form-control" type="text" value="<?php echo $username_top_user; ?>"/>
+												</label>
+												<button type="submit" class="btn btn-sm btn-primary pull-right" <?php if($cek == 1) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-ok"></span> Follow</button>
+											</form>
+											<form action="process/remove_relationship.php" method="post" style="display:inline;">
+												<label hidden>
+													<input name="username_a" class="form-control" type="text" value="<?php echo $username; ?>"/>
+													<input name="username_b" class="form-control" type="text" value="<?php echo $username_top_user; ?>"/>
+												</label>
+												<button type="submit" class="btn btn-sm btn-danger pull-right" <?php if($cek == 0) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-remove"></span> Unfollow</button>
+											</form>
 										</div>
 										<br/>
-										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<label>Suggestions For You</label>
-									</div>
-									<div class="panel-body">
-										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-										</div>
-										<br/>
-										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-										</div>
-										<br/>
-										<div>
-											<img src="../images/avatar.jpg" class="img-circle" style="height:32px; width:32px;">
-											<label style="margin-left:16px;"><a href="profile.php">Username</a></label>
-											<button type="button" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-ok"></span> Follow</button>
-										</div>
+										<?php
+												}
+											}
+										?>
 									</div>
 								</div>
 							</div>

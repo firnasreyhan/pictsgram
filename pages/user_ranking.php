@@ -14,8 +14,8 @@
 		<title>User Ranking | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body style="background:#fafafa;">
 		<?php
@@ -44,9 +44,9 @@
 										while($data = mysqli_fetch_array($query_top_user)){
 									?>
 									<tr>
-										<td><?php echo $ranking++; ?></td>
+										<td><?php echo $ranking++; ?> <?php if($ranking < 4){ echo "<span class='glyphicon glyphicon-star'></span>"; } ?></td>
 										<td>
-											<a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="width:40px; height:40px;"/></a>
+											<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="width:40px; height:40px;"/>
 											<label style="margin-left:10px;"><a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label>
 										</td>
 										<td><?php echo $data['TOTALFOLLOWERS']; ?></td>

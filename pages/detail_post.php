@@ -15,8 +15,8 @@
 		<title>Detail Post | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body style="background:#fafafa;">
 		<?php
@@ -59,7 +59,6 @@
 								<div style="margin-bottom:5px;">
 									<form action="process/add_love.php" method="post" style="display:inline;">
 										<label hidden>
-											<input name="location" class="form-control" type="text" value="detail"/>
 											<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 											<input name="username" class="form-control" type="text" value="<?php echo $_SESSION['username']; ?>"/>
 										</label>
@@ -67,7 +66,6 @@
 									</form>
 									<form action="process/remove_love.php" method="post" style="display:inline;">
 										<label hidden>
-											<input name="location" class="form-control" type="text" value="detail"/>
 											<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 											<input name="username" class="form-control" type="text" value="<?php echo $_SESSION['username']; ?>"/>
 										</label>
@@ -78,12 +76,13 @@
 								<label><a href="profile.php"><?php echo $total_love; ?> Likes</a></label>
 								<br/>
 								<div style="word-wrap:break-word;">
-									<p><label><a href="profile.php?username=<?php echo $username; ?>"><?php echo $username; ?></a></label> <?php echo $caption; ?></p>
+									<p><img src="../images/profile/<?php echo $image_profile; ?>" class="img-circle" style="height:32px; width:32px;"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="profile.php?username=<?php echo $username; ?>"><?php echo $username; ?></a></label> <?php echo $caption; ?></p>
 									<hr/>
 									<?php
-										$query_comment = mysqli_query($mysqli, "SELECT * FROM comment WHERE id_post='$id_post'");
-										while($data = mysqli_fetch_array($query_comment)){ ?>
-											<p><label><a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label> <?php echo $data['COMMENT']; ?></p>
+										$query_comment = mysqli_query($mysqli, "SELECT comment.ID_POST, user.USERNAME, user.IMAGE, comment.COMMENT FROM user, comment WHERE user.USERNAME = comment.USERNAME AND comment.ID_POST = '$id_post'");
+										while($data = mysqli_fetch_array($query_comment)) { 
+									?>
+									<p><img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label> <?php echo $data['COMMENT']; ?></p>
 									<?php
 										}
 									?>
@@ -91,7 +90,6 @@
 								<form action="process/add_comment.php" method="post">
 									<div class="input-group">
 										<label hidden>
-											<input name="location" class="form-control" type="text" value="detail"/>
 											<input name="id_post" class="form-control" type="text" value="<?php echo $id_post; ?>"/>
 											<input name="username" class="form-control" type="text" value="<?php echo $_SESSION['username']; ?>"/>
 										</label>

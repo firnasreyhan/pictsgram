@@ -7,6 +7,6 @@
 
     // while($post = mysqli_fetch_array($sql)){
     // $id_post = $post['ID_POST'];
-    mysqli_query($mysqli, "UPDATE USER SET STATUS='Block' WHERE USERNAME='$username'");
+    mysqli_query($mysqli, "UPDATE USER SET STATUS='Active' WHERE USERNAME='$username'");
     header("Location:data_user.php");
 ?>  

@@ -13,8 +13,9 @@
 	<title>Edit</title>
 	
 	<!-- Memanggil css bootstrap -->
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/style.min.css">
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body style="background:#fafafa;">
 	<!-- container-->
@@ -38,8 +39,20 @@
 			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
+						<?php 
+							if(isset($_GET['message'])){
+								$pesan = $_GET['message'];
+								if($pesan == "failed"){
+									echo "<p class='text-center text-danger'>Gagal edit profile!</p><br/>";
+								} else if($pesan == "size"){
+									echo "<p class='text-center text-danger'>Ukuran file foto terlalu besar!</p><br/>";
+								} else if($pesan == "extension"){
+									echo "<p class='text-center text-danger'>Ekstensi file foto anda salah!</p><br/>";
+								}
+							}
+						?>
 						<div>
-							<img src="../images/profile/<?php echo $image; ?>" class="img-circle foto center-block">
+							<img src="../images/profile/<?php echo $image; ?>" id="imgTemp" class="img-circle foto center-block">
 							<br/>
 							<p class="text-center"><b><?php echo $username; ?></b></p>
 						</div>
@@ -47,7 +60,7 @@
 						<form method="post" enctype="multipart/form-data" action="process/edit_profile.php">
 							<div class="form-group">
 								<label for="number">Profile Photo</label>
-								<input type="file" name="file">
+								<input type="file" name="file" id="img">
 							</div>
 							<div class="form-group">
 								<label for="usr">Name</label>
@@ -89,7 +102,21 @@
 			<div class="col-md-4"></div>
 		</div>
 	</div>
-	
 	<!-- akhir container -->
+	<script type="text/javascript">
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+					
+				reader.onload = function (e) {
+						$('#imgTemp').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#img").change(function(){
+			readURL(this);
+		});
+	</script>
 </body>
 </html>

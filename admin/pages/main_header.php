@@ -1,9 +1,22 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+	if($_SESSION['status'] != "active"){
+		header("location:login.php");
+	} else {
+		include("../../config/koneksi.php");
+		$sql_user = mysqli_query($mysqli,"SELECT * FROM user");
+		$jml_user = mysqli_num_rows($sql_user);
+		
+		$sql_post = mysqli_query($mysqli,"SELECT * FROM post");
+		$jml_post = mysqli_num_rows($sql_post);
+	}
+?>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Data Tables</title>
+  <title>Admin | Pictsgram</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -51,53 +64,6 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -110,7 +76,7 @@
           <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>Admin</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -121,7 +87,7 @@
           <a href="data_user.php">
             <i class="fa fa-user"></i> <span>User</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-green"><?php echo $jml_user;?></small>
             </span>
           </a>
         </li>
@@ -129,12 +95,12 @@
           <a href="data_photo.php">
             <i class="fa fa-camera"></i> <span>Photos</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-green"><?php echo $jml_post;?></small>
             </span>
           </a>
         </li>
 		<li>
-          <a href="login.php">
+          <a href="signout.php">
             <i class="glyphicon glyphicon-log-out"></i> <span>Sign Out</span>
           </a>
         </li>

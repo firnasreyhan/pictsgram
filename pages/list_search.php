@@ -4,7 +4,7 @@
 		header("location:signin.php?message=invalid");
 	}
 	$username_session = $_SESSION['username'];
-	$username_profil = $_GET['username'];
+	$param = $_GET['param'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width,
 	initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Following | Pictsgram</title>
+		<title>Search | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -30,25 +30,24 @@
 			<div class="col-md-1">
 			</div>
 			<div class="col-md-10">
-				<h1>Following</h1>
+				<h1>Search</h1>
 				<div class="row">
 					<?php
-						$query_following = mysqli_query($mysqli, "SELECT user.IMAGE, relationship.USERNAME_B FROM user, relationship WHERE user.USERNAME = relationship.USERNAME_B AND relationship.USERNAME_A = '$username_profil' ORDER BY relationship.TIME DESC");
-						$cek_jumlah_following = mysqli_num_rows($query_following);
-						if($cek_jumlah_following > 1) {
-							while($data = mysqli_fetch_array($query_following)){
-								$username_following = $data['USERNAME_B'];
-								if($username_profil != $username_following) {
-									$query_relationship = mysqli_query($mysqli, "SELECT * FROM relationship WHERE username_a = '$username_session' AND username_b = '$username_following'");
+						$query_search = mysqli_query($mysqli, "SELECT * FROM user WHERE username LIKE '%$param%' OR name LIKE '%$param%' OR email LIKE '%$param%'");
+						$cek_jumlah_follower = mysqli_num_rows($query_search);
+						if($cek_jumlah_follower > 0) {
+							while($data = mysqli_fetch_array($query_search)){
+								$username_search = $data['USERNAME'];
+									$query_relationship = mysqli_query($mysqli, "SELECT * FROM relationship WHERE username_a = '$username_session' AND username_b = '$username_search'");
 									$cek = mysqli_num_rows($query_relationship);
-									if($username_session == $username_following) {
+									if($username_session == $username_search) {
 					?>
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<div>
 									<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_following ?>"><?php echo $username_following; ?></a></label>
+									<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_search; ?>"><?php echo $username_search; ?></a></label>
 								</div>
 							</div>
 						</div>
@@ -61,18 +60,18 @@
 							<div class="panel-body">
 								<div>
 									<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="height:32px; width:32px;">
-									<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_following ?>"><?php echo $username_following; ?></a></label>
+									<label style="margin-left:16px;"><a href="profile.php?username=<?php echo $username_search ?>"><?php echo $username_search; ?></a></label>
 									<form action="process/add_relationship.php" method="post" style="display:inline;">
 										<label hidden>
 											<input name="username_a" class="form-control" type="text" value="<?php echo $username_session; ?>"/>
-											<input name="username_b" class="form-control" type="text" value="<?php echo $username_following; ?>"/>
+											<input name="username_b" class="form-control" type="text" value="<?php echo $username_search; ?>"/>
 										</label>
 										<button type="submit" class="btn btn-sm btn-primary pull-right" <?php if($cek == 1) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-ok"></span> Follow</button>
 									</form>
 									<form action="process/remove_relationship.php" method="post" style="display:inline;">
 										<label hidden>
 											<input name="username_a" class="form-control" type="text" value="<?php echo $username_session; ?>"/>
-											<input name="username_b" class="form-control" type="text" value="<?php echo $username_following; ?>"/>
+											<input name="username_b" class="form-control" type="text" value="<?php echo $username_search; ?>"/>
 										</label>
 										<button type="submit" class="btn btn-sm btn-danger pull-right" <?php if($cek == 0) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-remove"></span> Unfollow</button>
 									</form>
@@ -82,11 +81,11 @@
 					</div>
 					<?php
 									}
-								}
+								
 							}
 						} else {
 					?>
-					<h1 class="text-center" style="margin-top:175px;">~No Following~</h1>
+					<h1 class="text-center" style="margin-top:175px;">~No User~</h1>
 					<?php
 						}
 					?>

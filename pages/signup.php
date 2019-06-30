@@ -8,8 +8,8 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Sign Up | Pictsgram</title>
 		<!-- Memanggil css -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body style="background:#fafafa;">
 		<div class="container"
@@ -54,8 +54,6 @@
 									<br/>
 									<button type="submit" class="btn btn-primary" style="width:100%;">Sign Up</button>
 								</form>
-								<br/>
-								<p class="text-center" style="color:#999;">By signing up, you agree to our <b>Terms</b> , <b>Data Policy</b> and <b>Cookies Policy</b> .</p>
 							</div>
 						</div>
 						<div class="panel panel-default">

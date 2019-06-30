@@ -1,3 +1,3 @@
 <?php
-	echo "Ini index :)"
+	header("Location:pages/login.php");
 ?>

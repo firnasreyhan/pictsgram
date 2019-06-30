@@ -16,7 +16,7 @@
 		<title><?php echo $username; ?> | Pictsgram</title>
 		
 		<!-- Memanggil css bootstrap -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style.css">
 		
 </head>
@@ -44,55 +44,59 @@
 			<div class="col-md-1">
 			</div>
 			<div class="col-md-10">
-				<div class="row">
-					<div class="col-md-4">
-						<img src="../images/profile/<?php echo $image; ?>" class="img-circle foto_profil center-block">
-					</div>
-					<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12">
-								<h1>
-									<?php echo $username; ?>
-									<?php
-										if($_SESSION['username'] == $username) {
-									?>
-									<a href="edit_profile.php?username=<?php echo $username; ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit Profile</a>
-									<?php
-										} else {
-									?>
-									<form action="process/add_relationship.php" method="post" style="display:inline;">
-										<label hidden>
-											<input name="username_a" class="form-control" type="text" value="<?php echo $username_me; ?>"/>
-											<input name="username_b" class="form-control" type="text" value="<?php echo $username; ?>"/>
-										</label>
-										<button type="submit" class="btn btn-primary" <?php if($cek == 1) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-ok"></span> Follow</button>
-									</form>
-									<form action="process/remove_relationship.php" method="post" style="display:inline;">
-										<label hidden>
-											<input name="username_a" class="form-control" type="text" value="<?php echo $username_me; ?>"/>
-											<input name="username_b" class="form-control" type="text" value="<?php echo $username; ?>"/>
-										</label>
-										<button type="submit" class="btn btn-danger" <?php if($cek == 0) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-remove"></span> Unfollow</button>
-									</form>
-									<?php
-										}
-									?>
-								</h1>
+							<div class="col-md-4">
+								<img src="../images/profile/<?php echo $image; ?>" class="img-circle foto_profil center-block">
+							</div>
+							<div class="col-md-8">
+								<div class="row">
+									<div class="col-md-12">
+										<h1>
+											<?php echo $username; ?>
+											<?php
+												if($_SESSION['username'] == $username) {
+											?>
+											<a href="edit_profile.php?username=<?php echo $username; ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit Profile</a>
+											<?php
+												} else {
+											?>
+											<form action="process/add_relationship.php" method="post" style="display:inline;">
+												<label hidden>
+													<input name="username_a" class="form-control" type="text" value="<?php echo $username_me; ?>"/>
+													<input name="username_b" class="form-control" type="text" value="<?php echo $username; ?>"/>
+												</label>
+												<button type="submit" class="btn btn-primary" <?php if($cek == 1) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-ok"></span> Follow</button>
+											</form>
+											<form action="process/remove_relationship.php" method="post" style="display:inline;">
+												<label hidden>
+													<input name="username_a" class="form-control" type="text" value="<?php echo $username_me; ?>"/>
+													<input name="username_b" class="form-control" type="text" value="<?php echo $username; ?>"/>
+												</label>
+												<button type="submit" class="btn btn-danger" <?php if($cek == 0) { echo "style='display:none;'"; } ?>><span class="glyphicon glyphicon-remove"></span> Unfollow</button>
+											</form>
+											<?php
+												}
+											?>
+										</h1>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3">
+										<p><b><?php echo $total_post; ?></b> photos</p>
+									</div>
+									<div class="col-sm-3">
+										<a href="list_follower.php?username=<?php echo $username; ?>"><p><b><?php echo $total_followers; ?></b> followers</p></a>
+									</div>
+									<div class="col-sm-3">
+										<a href="list_following.php?username=<?php echo $username; ?>"><p><b><?php echo $total_following; ?></b> following</p></a>
+									</div>
+								</div>
+								<p><b><?php echo $fullname; ?></b></p>
+								<p><?php echo $about; ?></p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-3">
-								<p><b><?php echo $total_post; ?></b> post</p>
-							</div>
-							<div class="col-sm-3">
-								<p><b><?php echo $total_followers; ?></b> followers</p>
-							</div>
-							<div class="col-sm-3">
-								<p><b><?php echo $total_following; ?></b> following</p>
-							</div>
-						</div>
-						<p><b><?php echo $fullname; ?></b></p>
-						<p><?php echo $about; ?></p>
 					</div>
 				</div>
 				<hr/>
@@ -102,11 +106,28 @@
 						if (mysqli_num_rows($query_post) != 0) {
 							while($data = mysqli_fetch_array($query_post)){
 					?>
-					<div class="col-md-4 jarak">
-						<div class="center-crop">
-							<a href="detail_post.php?id_post=<?php echo $data['ID_POST'];?>">
-								<img  src="../images/post/<?php echo $data['IMAGE'];?>">
-							</a>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="center-crop">
+									<a href="detail_post.php?id_post=<?php echo $data['ID_POST'];?>">
+										<img <?php if($data['WIDTH'] > $data['HEIGHT']) { echo "class='portrait'"; } ?> src="../images/post/<?php echo $data['IMAGE'];?>">
+									</a>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-md-4">
+										<a type="button" class="btn btn-sm btn-default center-block disabled"><?php echo $data['TOTAL_LOVE'];?> <span class="glyphicon glyphicon-heart"></span></a>
+									</div>
+									<div class="col-md-4">
+										<a type="button" class="btn btn-sm btn-default center-block disabled"><?php echo $data['TOTAL_COMMENT'];?> <span class="glyphicon glyphicon-comment"></span></a>
+									</div>
+									<div class="col-md-4">
+										<a type="button" class="btn btn-sm btn-default center-block disabled"><?php echo $data['TOTAL_VIEW'];?> <span class="glyphicon glyphicon-eye-open"></span></a>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<?php

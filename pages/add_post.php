@@ -16,8 +16,8 @@
 		<script src="../js/jquery-3.4.1.min.js"></script>
 		
 		<!-- Memanggil css bootstrap -->
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/style.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body style="background:#fafafa;">
 		<?php
@@ -33,7 +33,18 @@
 								<div class="col-md-12">
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											
+											<?php 
+												if(isset($_GET['message'])){
+													$pesan = $_GET['message'];
+													if($pesan == "failed"){
+														echo "<p class='text-center text-danger'>Gagal edit profile!</p><br/>";
+													} else if($pesan == "size"){
+														echo "<p class='text-center text-danger'>Ukuran file foto terlalu besar!</p><br/>";
+													} else if($pesan == "extension"){
+														echo "<p class='text-center text-danger'>Ekstensi file foto anda salah!</p><br/>";
+													}
+												}
+											?>
 										</div>
 										<div class="">
 											<img src="../images/no_photo.jpg" id="imgTemp" class="img-responsive center-block" />

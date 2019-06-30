@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Photos
+        Data User
       </h1>
     </section>
 
@@ -42,10 +42,13 @@
                           echo "<td>".$data['email']."</td>"; 
                           echo "<td>".$data['phone']."</td>";
                           echo "<td>".$data['status']."</td>";
-
-                          echo "<td><a href='delete_user.php?username=".$data['username']."' class='btn btn-xs btn-danger'>Delete</a>
-					                <a href='block_user.php?username=".$data['username']."' class='btn btn-xs btn-warning'>Block</a></td></tr>";    
-                          echo "</tr>";
+                          echo "<td><a href='delete_user.php?username=".$data['username']."' class='btn btn-xs btn-danger'>Delete</a> ";
+					      if($data['status'] != 'Block') {
+							  echo "<a href='block_user.php?username=".$data['username']."' class='btn btn-xs btn-warning'>Block</a>";
+						  } else {
+							  echo "<a href='unblock_user.php?username=".$data['username']."' class='btn btn-xs btn-success'>Unblock</a>";
+						  }							  
+                          echo "</td></tr>";
                         }
 
                     ?>

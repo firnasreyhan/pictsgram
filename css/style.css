@@ -13,8 +13,8 @@
 }
 .center-crop {
   position: relative;
-  width: 293px;
-  height: 293px;
+  width: 263px;
+  height: 263px;
   overflow: hidden;
 }
 .center-crop img {

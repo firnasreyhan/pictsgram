@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2019 at 03:01 PM
+-- Generation Time: Jun 30, 2019 at 06:51 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -41,17 +41,7 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`ID_COMMENT`, `ID_POST`, `USERNAME`, `COMMENT`, `TIME`) VALUES
-(1, 1, 'firnas_reyhan', 'Bagus sekali gambarnya!', '2019-06-25 00:00:00'),
-(2, 4, 'firnas_reyhan', 'Sang penghancur dunia', '2019-06-28 09:32:16'),
-(3, 4, 'firnas_reyhan', 'hahahaha', '2019-06-28 09:32:50'),
-(4, 4, 'firnasreyhan_A', 'Tes uy', '2019-06-28 09:36:29'),
-(5, 1, 'firnas_reyhan', 'Tes lagi', '2019-06-28 10:05:55'),
-(6, 2, 'firnasreyhan_A', 'DEWAAAA', '2019-06-28 10:06:25'),
-(7, 5, 'firnasreyhan_A', 'Flame! Please!', '2019-06-28 01:26:34'),
-(8, 4, 'firnasreyhan_A', 'Kamen Ride!', '2019-06-28 01:26:47'),
-(9, 3, 'firnasreyhan_A', 'Clock Up!', '2019-06-28 01:26:57'),
-(10, 2, 'firnasreyhan_A', 'Lock On!', '2019-06-28 01:27:06'),
-(11, 1, 'firnasreyhan_A', 'Scaning Charge!', '2019-06-28 01:27:23');
+(15, 13, 'firnas_reyhan', 'I like your style', '2019-06-30 11:51:01');
 
 --
 -- Triggers `comment`
@@ -83,16 +73,13 @@ CREATE TABLE `love` (
 --
 
 INSERT INTO `love` (`ID_LOVE`, `ID_POST`, `USERNAME`, `TIME`) VALUES
-(1, 4, 'firnasreyhan_A', '2019-06-28 07:04:42'),
-(2, 3, 'firnasreyhan_A', '2019-06-28 07:04:51'),
-(3, 2, 'firnasreyhan_A', '2019-06-28 07:04:57'),
-(4, 1, 'firnasreyhan_A', '2019-06-28 07:05:04');
+(15, 13, 'firnas_reyhan', '2019-06-30 11:50:51');
 
 --
 -- Triggers `love`
 --
 DELIMITER $$
-CREATE TRIGGER `decc_love` AFTER DELETE ON `love` FOR EACH ROW UPDATE post set TOTAL_LOVE = (TOTAL_LOVE - 1) WHERE post.ID_POST = old.ID_POST
+CREATE TRIGGER `dec_love` AFTER DELETE ON `love` FOR EACH ROW UPDATE post set TOTAL_LOVE = (TOTAL_LOVE - 1) WHERE post.ID_POST = old.ID_POST
 $$
 DELIMITER ;
 DELIMITER $$
@@ -124,21 +111,17 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`ID_POST`, `USERNAME`, `IMAGE`, `CAPTION`, `WIDTH`, `HEIGHT`, `TOTAL_LOVE`, `TOTAL_COMMENT`, `TOTAL_VIEW`, `TIME`) VALUES
-(1, 'firnas_reyhan', '50494076_526770821143715_8212565249111359488_n.jpg', 'asd', 736, 736, 1, 3, 0, '2019-06-27 11:40:45'),
-(2, 'firnas_reyhan', '50496090_526770937810370_9029871854520631296_n.jpg', 'Hanamichi On Stage!', 736, 736, 1, 2, 0, '2019-06-27 11:44:15'),
-(3, 'firnas_reyhan', '50549185_526770664477064_2472200260957503488_o.jpg', 'Change Beetle!', 1024, 1024, 1, 1, 0, '2019-06-27 11:48:40'),
-(4, 'firnas_reyhan', '51278339_526770754477055_7338203159975690240_o.jpg', 'Decade!', 1024, 1024, 1, 4, 2, '2019-06-28 09:17:00'),
-(5, 'firnasreyhan_A', '50574178_526770911143706_126227680080166912_o.jpg', 'Henshin!', 1024, 1024, 0, 1, 0, '2019-06-28 11:48:45');
+(13, 'firnas_reyhan', '50775281_526770567810407_5368146341845270528_n.jpg', 'Blade!', 736, 736, 1, 1, 3, '2019-06-30 11:50:37');
 
 --
 -- Triggers `post`
 --
 DELIMITER $$
-CREATE TRIGGER `dec_post` AFTER DELETE ON `post` FOR EACH ROW UPDATE user SET TOTAL_POST = (TOTAL_POST - 1) WHERE user.USERNAME = USERNAME
+CREATE TRIGGER `dec_post` AFTER DELETE ON `post` FOR EACH ROW UPDATE user SET TOTAL_POST = (TOTAL_POST - 1) WHERE user.USERNAME = old.USERNAME
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `inc_post` AFTER INSERT ON `post` FOR EACH ROW UPDATE user SET TOTAL_POST = (TOTAL_POST + 1) WHERE user.USERNAME = USERNAME
+CREATE TRIGGER `inc_post` AFTER INSERT ON `post` FOR EACH ROW UPDATE user SET TOTAL_POST = (TOTAL_POST + 1) WHERE user.USERNAME = new.USERNAME
 $$
 DELIMITER ;
 
@@ -160,10 +143,7 @@ CREATE TABLE `relationship` (
 --
 
 INSERT INTO `relationship` (`ID_RELATIONSHIP`, `USERNAME_A`, `USERNAME_B`, `TIME`) VALUES
-(9, 'firnasreyhan_A', 'firnasreyhan_A', '2019-06-25 00:00:00'),
-(10, 'admin.digiponic', 'admin.digiponic', '2019-06-28 11:53:21'),
-(11, 'firnas_reyhan', 'firnas_reyhan', NULL),
-(12, 'firnasreyhan_A', 'firnas_reyhan', '2019-06-28 12:25:04');
+(17, 'firnas_reyhan', 'firnas_reyhan', '2019-06-30 11:49:03');
 
 --
 -- Triggers `relationship`
@@ -189,7 +169,14 @@ DELIMITER ;
 --
 CREATE TABLE `top_post` (
 `ID_POST` int(11)
+,`USERNAME` varchar(16)
+,`PROFILE` varchar(250)
 ,`IMAGE` varchar(250)
+,`WIDTH` int(11)
+,`HEIGHT` int(11)
+,`TOTAL_LOVE` int(11)
+,`TOTAL_COMMENT` int(11)
+,`TOTAL_VIEW` int(11)
 ,`POINT` decimal(16,4)
 );
 
@@ -236,9 +223,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`USERNAME`, `PASSWORD`, `NAME`, `GENDER`, `ABOUT`, `EMAIL`, `PHONE`, `WEBSITE`, `IMAGE`, `TOTAL_POST`, `TOTAL_FOLLOWING`, `TOTAL_FOLLOWERS`, `STATUS`, `TIME`) VALUES
-('admin.digiponic', 'muraf212', 'Digiponic', 'None', NULL, 'digiponic@gmail.com', NULL, NULL, 'no_profile.jpg', 0, 0, 0, 'User', '2019-06-28 11:53:21'),
-('firnasreyhan_A', 'muraf212', 'Firnas Reyhan', 'Male', '', 'nanasenchi@gmail.com', '', '', 'no_profile.jpg', 1, 1, 0, 'User', '2019-06-28 12:31:06'),
-('firnas_reyhan', 'muraf212', 'Reyhan Firnas', 'None', 'Hello World!\r\nAku adalah bintang', 'firnas@gmail.com', '03412967896', 'www.twitter.com', '50565298_526770537810410_5669312661276327936_o.jpg', 5, 0, 1, 'User', '2019-06-26 09:33:37');
+('firnas_reyhan', 'muraf212', 'Reyhan Firnas', 'Male', 'Ilmuan Gila', 'firnasreyhan@gmail.com', '082336704502', 'www.google.com', '50574252_526771077810356_2845049936746119168_o.jpg', 1, 0, 0, 'Active', '2019-06-30 11:49:03');
 
 -- --------------------------------------------------------
 
@@ -247,7 +232,7 @@ INSERT INTO `user` (`USERNAME`, `PASSWORD`, `NAME`, `GENDER`, `ABOUT`, `EMAIL`, 
 --
 DROP TABLE IF EXISTS `top_post`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `top_post`  AS  select `post`.`ID_POST` AS `ID_POST`,`post`.`IMAGE` AS `IMAGE`,(((`post`.`TOTAL_LOVE` + `post`.`TOTAL_COMMENT`) + `post`.`TOTAL_VIEW`) / 3) AS `POINT` from `post` order by (((`post`.`TOTAL_LOVE` + `post`.`TOTAL_COMMENT`) + `post`.`TOTAL_VIEW`) / 3) desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `top_post`  AS  select `post`.`ID_POST` AS `ID_POST`,`post`.`USERNAME` AS `USERNAME`,`user`.`IMAGE` AS `PROFILE`,`post`.`IMAGE` AS `IMAGE`,`post`.`WIDTH` AS `WIDTH`,`post`.`HEIGHT` AS `HEIGHT`,`post`.`TOTAL_LOVE` AS `TOTAL_LOVE`,`post`.`TOTAL_COMMENT` AS `TOTAL_COMMENT`,`post`.`TOTAL_VIEW` AS `TOTAL_VIEW`,(((`post`.`TOTAL_LOVE` + `post`.`TOTAL_COMMENT`) + `post`.`TOTAL_VIEW`) / 3) AS `POINT` from (`user` join `post`) where (`user`.`USERNAME` = `post`.`USERNAME`) order by (((`post`.`TOTAL_LOVE` + `post`.`TOTAL_COMMENT`) + `post`.`TOTAL_VIEW`) / 3) desc ;
 
 -- --------------------------------------------------------
 
@@ -308,25 +293,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `ID_COMMENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_COMMENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `love`
 --
 ALTER TABLE `love`
-  MODIFY `ID_LOVE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_LOVE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `ID_POST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_POST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `relationship`
 --
 ALTER TABLE `relationship`
-  MODIFY `ID_RELATIONSHIP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID_RELATIONSHIP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
