@@ -28,7 +28,7 @@
 											} else if($pesan == "invalid"){
 												echo "<p class='text-center text-danger'>Anda harus login terlebih dahulu!</p><br/>";
 											} else if($pesan == "block"){
-												echo "<p class='text-center text-danger'>Maaf akun anda telah terblokir!</p><br/>";
+												echo "<p class='text-center text-danger'>Maaf akun anda sedang diblokir!</p><br/>";
 											}
 										}
 									?>

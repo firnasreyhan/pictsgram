@@ -22,7 +22,7 @@
 					</div>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="add_post.php?username=<?php echo $_SESSION['username']; ?>"><span class="glyphicon glyphicon-camera"></span> Add Photo</a></li>
+					<li><a href="add_post.php"><span class="glyphicon glyphicon-camera"></span> Add Photo</a></li>
 					<li><a href="profile.php?username=<?php echo $_SESSION['username']; ?>"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 					<li><a href="process/signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
 				</ul>

@@ -3,7 +3,7 @@
 	if($_SESSION['status'] != "active"){
 		header("location:signin.php?message=invalid");
 	}
-	$username = $_GET['username'];
+	$username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

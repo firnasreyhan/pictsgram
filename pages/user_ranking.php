@@ -44,7 +44,7 @@
 										while($data = mysqli_fetch_array($query_top_user)){
 									?>
 									<tr>
-										<td><?php echo $ranking++; ?> <?php if($ranking < 4){ echo "<span class='glyphicon glyphicon-star'></span>"; } ?></td>
+										<td><?php echo $ranking++; ?> <?php if($ranking < 5){ echo "<span class='glyphicon glyphicon-star'></span>"; } ?></td>
 										<td>
 											<img src="../images/profile/<?php echo $data['IMAGE']; ?>" class="img-circle" style="width:40px; height:40px;"/>
 											<label style="margin-left:10px;"><a href="profile.php?username=<?php echo $data['USERNAME']; ?>"><?php echo $data['USERNAME']; ?></a></label>
